@@ -12,7 +12,7 @@ public class Dragon extends Fighter {
         this(30, 8, null);
     }
 
-    protected Dragon(double health, double strength, String name) {
+    private Dragon(double health, double strength, String name) {
         super(health, strength, name);
     }
 

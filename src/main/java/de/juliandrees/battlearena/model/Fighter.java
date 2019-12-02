@@ -19,7 +19,7 @@ public abstract class Fighter {
     private List<Skill> attacks = new ArrayList<>();
     private List<Skill> defenses = new ArrayList<>();
 
-    public Fighter() {
+    private Fighter() {
         this.id = FighterRegister.getFighterId(getClass());
     }
 
@@ -53,7 +53,7 @@ public abstract class Fighter {
      * @param enemy der Gegner, der angegriffen werden soll
      * @return true, wenn der aktueller Kämper den Gegner besieht hat, false wenn der Gegner noch lebt
      */
-    protected boolean attackEnemy(final Fighter enemy) {
+    boolean attackEnemy(final Fighter enemy) {
         double value = this.strength * getRandomSkill(this.attacks).getStrength();
 
         if (Math.random() > 0.7)
@@ -69,7 +69,7 @@ public abstract class Fighter {
      * @param attackValue der reine Angriffswert der Attacke
      * @return der neue Angriffswert (die Attacke wurde abgewehrt)
      */
-    double defendAttack(final double attackValue) {
+    private double defendAttack(final double attackValue) {
         Skill defense = getRandomSkill(this.defenses);
         if (defense == null) {
             return attackValue;
@@ -91,7 +91,7 @@ public abstract class Fighter {
      *
      * @return der Standardname des Kämpfers
      */
-    protected String getDefaultName() {
+    private String getDefaultName() {
         return FighterRegister.getFighterLabel(getClass());
     };
 
@@ -100,7 +100,7 @@ public abstract class Fighter {
      *
      * @param reduce der Wert, um den das Leben reduziert werden soll
      */
-    protected void recudeHealth(double reduce) {
+    private void recudeHealth(double reduce) {
         this.health -= reduce;
     }
 
@@ -110,7 +110,7 @@ public abstract class Fighter {
      * @param skillList die Liste, aus dem der Skill gewählt werden soll (attacks, defenses)
      * @return der zufällig gewählte Skill
      */
-    protected Skill getRandomSkill(final List<Skill> skillList) {
+    private Skill getRandomSkill(final List<Skill> skillList) {
         if (skillList.isEmpty())
             return null;
         return skillList.get(new Random().nextInt(skillList.size()));
@@ -144,7 +144,7 @@ public abstract class Fighter {
         this.name = name;
     }
 
-    public void reset() {
+    void reset() {
         setName(null);
         this.health = fallbackHealth;
         this.strength = fallbackStrength;

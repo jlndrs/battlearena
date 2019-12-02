@@ -12,7 +12,7 @@ public class Magician extends Fighter {
         this(40, 7, null);
     }
 
-    protected Magician(double health, double strength, String name) {
+    private Magician(double health, double strength, String name) {
         super(health, strength, name);
     }
 

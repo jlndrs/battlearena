@@ -12,7 +12,7 @@ public class Archer extends Fighter {
         this(50, 6, null);
     }
 
-    protected Archer(double health, double strength, String name) {
+    private Archer(double health, double strength, String name) {
         super(health, strength, name);
     }
 

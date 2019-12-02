@@ -12,7 +12,7 @@ public class Giant extends Fighter {
         this(100, 4, null);
     }
 
-    protected Giant(double health, double strength, String name) {
+    private Giant(double health, double strength, String name) {
         super(health, strength, name);
     }
 
