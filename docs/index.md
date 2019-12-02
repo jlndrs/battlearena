@@ -32,6 +32,20 @@ Die Implementierungen der Fighter:
 - [Dragon](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Dragon.java)
 - [Magician](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Magician.java)
 
+### Abstraktion
+Die Klasse `Fighter` ist eine abstrakte Klasse, die auch die Spiellogik für den Spieler beinhaltet. Jeder Fighter braucht eine Id und einen Standard-Namen (Kämpfername). Da von mehreren Stellen darauf zugegriffen wird habe ich mich dazu entschieden ein `FighterRegister` anzulegen, welche diese Informationen beinhaltet.
+
+*Ursprüngliches Problem: Für Ausgaben o.ä braucht man keine Objekte, sondern lediglich Basisinformationen. Diese Basisinformationen kann man aber nicht erreichen wenn diese nur in Objekten vom Typ Fighter verfügbar sind.*
+
+Daher sind diese zwei Informationen (Id und Standard-Name) im FighterRegister vorhanden.
+Bei der Initialisierung eines Fighter-Objektes werden dann diese beiden Eigenschaften anhand der Klasse aus dem `FighterRegister` geladen.
+
+Für die Liste von Skills ist eine abstrakte Methode definiert, die in den Subklassen implementiert werden muss:
+
+``` java
+protected abstract List<Skill> defineSkills();
+```
+
 ### Polymorphismus
 Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphismus in den Subklassen festgelegt werden.
 
@@ -39,3 +53,13 @@ Die einzelnen Implementierungen benötigen keine besonderen Implementierungen vo
 Die Objekte verwalten sich größtenteils selbst. Für andere Objekte bedeutet das konkret: wenig Zugriff auf die Eigenschaften anderer Objekte, und wenn: meist zur Lesezugriff. Die Datenkapselung reduziert das Risiko von falscher Nutzung der Objekte und Eigenschaften.
 
 Die Datenkapselung gilt nicht nur für Attribute (und deren get- und set-Methoden) sondern auch für andere Funktionen.
+
+### Lambda-Ausdrücke
+Lambda-Ausdrücke sind Kurzschreibweisen für bestimmte Funktionen in Java (z.B Iterieren von Listen, Initialisierung von Obekten, etc..).
+
+In *BattleArena* werden auch Lambda-Ausdrücke verwendet, um den Quellcode zu reduzieren:
+``` java
+.filter(fighterRegister -> fighterRegister.getFighterClass().equals(fighterClazz))
+```
+
+Lambda-Ausdrücke sind nicht notwendig, bieten jedoch eine schöne und einfache Alternative zu alltäglichen Funktionen, die deutlich mehr Code verursachen würden (Syntaktischer Zucker).
