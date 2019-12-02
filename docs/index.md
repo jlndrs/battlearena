@@ -3,8 +3,10 @@ BattleArena ist ein Spiel, bei dem sich ein Spieler seinen Charakter auswählen 
 Der Spieler hat gewonnen wenn alle Gegner besiegt wurden.
 
 ## Abhängigkeiten
-- [maven](https://maven.apache.org/)
-- [java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+- [maven](https://maven.apache.org/) - für den Build-Prozess / die Abhängigkeiten
+- [java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) - Programmiersprache
+
+Für das Projekt ist keine Main-Methode angegeben, sodass das Projekt nur aus der IDE mit Auswahl der MainKlasse (BattleArena.java) ausgeführt werden kann.
 
 ## Entwicklerdokumentation
 
@@ -20,6 +22,8 @@ Das Spiel läuft solange der aktueller Spieler alle Spiele gewonnen hat und noch
 ### Design
 Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung aufgebaut. Es werden im Quellcode die verschiedenen Klassen (Kämpfer) definiert, welche von einer Basisklasse erben. Für die Übersichtlichkeit habe ich die verschiedenen Implementierungen der Fighter-Klassen nicht eingefügt.
 
+Durch die dynamische Bindung (hier: Liste von Kämpfern im BattleService) kann das Projekt einfach und unkompliziert um neue Kämpfer erweitert aber auch reduziert werden.
+
 ![UML Diagramm](https://raw.githubusercontent.com/jlndrs/battlearena/master/docs/uml.png)
 
 Die Implementierungen der Fighter:
@@ -28,3 +32,10 @@ Die Implementierungen der Fighter:
 - [Dragon](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Dragon.java)
 - [Magician](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Magician.java)
 
+### Polymorphismus
+Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphismus in den Subklassen festgelegt werden.
+
+### Datenkapselung
+Die Objekte verwalten sich größtenteils selbst. Für andere Objekte bedeutet das konkret: wenig Zugriff auf die Eigenschaften anderer Objekte, und wenn: meist zur Lesezugriff. Die Datenkapselung reduziert das Risiko von falscher Nutzung der Objekte und Eigenschaften.
+
+Die Datenkapselung gilt nicht nur für Attribute (und deren get- und set-Methoden) sondern auch für andere Funktionen.
