@@ -19,3 +19,5 @@ Das Spiel läuft solange der aktueller Spieler alle Spiele gewonnen hat und noch
 
 ### Design
 Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung aufgebaut. Es werden im Quellcode die verschiedenen Klassen (Kämpfer) definiert, welche von einer Basisklasse erben.
+
+![UML Diagramm](https://raw.githubusercontent.com/jlndrs/battlearena/master/docs/uml.png)
