@@ -18,6 +18,13 @@ Das Spiel läuft solange der aktueller Spieler alle Spiele gewonnen hat und noch
 4. Kämpfe werden simuliert
 
 ### Design
-Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung aufgebaut. Es werden im Quellcode die verschiedenen Klassen (Kämpfer) definiert, welche von einer Basisklasse erben.
+Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung aufgebaut. Es werden im Quellcode die verschiedenen Klassen (Kämpfer) definiert, welche von einer Basisklasse erben. Für die Übersichtlichkeit habe ich die verschiedenen Implementierungen der Fighter-Klassen nicht eingefügt.
 
 ![UML Diagramm](https://raw.githubusercontent.com/jlndrs/battlearena/master/docs/uml.png)
+
+Die Implementierungen der Fighter:
+- [Archer](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Archer.java)
+- [Giant](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Giant.java)
+- [Dragon](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Dragon.java)
+- [Magician](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Magician.java)
+
