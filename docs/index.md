@@ -20,7 +20,7 @@ Das Spiel läuft solange der aktueller Spieler alle Spiele gewonnen hat und noch
 4. Kämpfe werden simuliert
 
 ### Design
-Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung aufgebaut. Es werden im Quellcode die verschiedenen Klassen (Kämpfer) definiert, welche von einer Basisklasse erben. Für die Übersichtlichkeit habe ich die verschiedenen Implementierungen der Fighter-Klassen nicht eingefügt.
+Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung aufgebaut. Es werden im Quellcode die verschiedenen Klassen (Kämpfer) definiert, welche von einer Basisklasse erben.
 
 Durch die dynamische Bindung (hier: Liste von Kämpfern im BattleService) kann das Projekt einfach und unkompliziert um neue Kämpfer erweitert aber auch reduziert werden.
 
@@ -52,11 +52,11 @@ protected abstract List<Skill> defineSkills();
 Datenblöcke, die inhaltlich zu einem Thema / Bereich gehören, wurden hier in einzelne Klassen / Objekte aufgeteilt und zusammengefasst. 
 
 #### Einmalige Instanziierung (Zuständigkeiten)
-Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: inhaltlich gehören die Attribute (z.B. die Streams im GameMenu)
-nicht zu einer anderen Klasse, sie müssen nicht für alle verfügbar sein (wie sie es z.B. in der Main-Klasse wären).
+Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: inhaltlich gehören die Attribute (z.B. die Streams im GameMenu) zu keiner bestehenden Klasse, sie müssen nicht für die Klasse verfügbar sein, in der sie verwendet werden (wie sie es z.B. in der Main-Klasse wären).
 
-Durch die Aufteilung auf Klassen beinhaltet die Hauptklasse deutlich weniger Referenzen auf Objekte und kann trotzdem alle nötigen Funktionen nutzen,
-die Zuständigkeiten werden in Klassen ausgelagert.
+Daher erstellt man Klassen, die diese Attribute durch Methoden verwalten können. Die Klassen, die ein Objekt der Klasse dann verwenden können über die Methoden auf die Attribute indirekt zugreifen.
+
+Durch die Aufteilung auf Klassen beinhaltet die Hauptklasse deutlich weniger Referenzen auf Objekte und kann trotzdem alle nötigen Funktionen nutzen, die Zuständigkeiten werden in Klassen ausgelagert.
 So werden die Attribute ebenfalls vor fremden und falschem Zugriff geschützt (Thema: Datenkapselung).
 
 Aus der Abstraktion entstanden folgende Klassen:
@@ -74,12 +74,14 @@ Das GameMenu ist die Konsole, auf der der Benutzer Eingaben und das System Ausga
 Der BattleService ist ein Service welcher das Spiel verwaltet. Er beinhaltet die Fighter und initialisiert die Spiele mit den Gegnern. 
 
 ### Polymorphie
-Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphismus in den Subklassen festgelegt werden.
+Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphie in den Subklassen festgelegt werden.
 
 ### Datenkapselung
 Die Objekte verwalten sich größtenteils selbst. Für andere Objekte bedeutet das konkret: wenig Zugriff auf die Eigenschaften anderer Objekte, und wenn: meist zur Lesezugriff. Die Datenkapselung reduziert das Risiko von falscher Nutzung der Objekte und Eigenschaften.
 
 Die Datenkapselung gilt nicht nur für Attribute (und deren get- und set-Methoden) sondern auch für andere Funktionen.
+
+Dazu: die Klassen sind keine reinen POJO-Objekte (Datenobjekte), da Logik in der Klasse enthalten ist.
 
 ### Lambda-Ausdrücke
 Lambda-Ausdrücke sind Kurzschreibweisen für bestimmte Funktionen in Java (z.B Iterieren von Listen, Initialisierung von Obekten, etc..).
