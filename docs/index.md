@@ -24,7 +24,7 @@ Das Projekt wurde auf dem Konzept der Abstraktion sowie der dynamischen Bindung 
 
 Durch die dynamische Bindung (hier: Liste von Kämpfern im BattleService) kann das Projekt einfach und unkompliziert um neue Kämpfer erweitert aber auch reduziert werden.
 
-![UML Diagramm](https://raw.githubusercontent.com/jlndrs/battlearena/master/docs/uml.png)
+![UML Diagramm](https://raw.githubusercontent.com/jlndrs/battlearena/master/docs/uml-diagram.png)
 
 Die Implementierungen der Fighter:
 - [Archer](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Archer.java)
