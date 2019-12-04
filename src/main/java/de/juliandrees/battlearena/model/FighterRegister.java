@@ -6,7 +6,6 @@ import de.juliandrees.battlearena.model.fighter.Giant;
 import de.juliandrees.battlearena.model.fighter.Magician;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 public enum FighterRegister {
 
@@ -37,11 +36,6 @@ public enum FighterRegister {
 
     public String getLabel() {
         return label;
-    }
-
-    public static FighterRegister getFighterInformation(final int id) {
-        Optional<FighterRegister> optional =  Arrays.stream(FighterRegister.values()).filter(fighterRegister -> fighterRegister.getId() == id).findFirst();
-        return optional.orElse(null);
     }
 
     public static int getFighterId(final Class<? extends Fighter> fighterClazz) {

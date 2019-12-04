@@ -46,8 +46,20 @@ Für die Liste von Skills ist eine abstrakte Methode definiert, die in den Subkl
 protected abstract List<Skill> defineSkills();
 ```
 
+
+
 ### Objektorientierung
-Datenblöcke, die inhaltlich zu einem Thema / Bereich gehören, wurden hier in einzelne Klassen / Objekte aufgeteilt und zusammengefasst. Daraus entstanden folgende Klassen:
+Datenblöcke, die inhaltlich zu einem Thema / Bereich gehören, wurden hier in einzelne Klassen / Objekte aufgeteilt und zusammengefasst. 
+
+#### Einmalige Instanziierung (Zuständigkeiten)
+Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: inhaltlich gehören die Attribute (z.B. die Streams im GameMenu)
+nicht zu einer anderen Klasse, sie müssen nicht für alle verfügbar sein (wie sie es z.B. in der Main-Klasse wären).
+
+Durch die Aufteilung auf Klassen beinhaltet die Hauptklasse deutlich weniger Referenzen auf Objekte und kann trotzdem alle nötigen Funktionen nutzen,
+die Zuständigkeiten werden in Klassen ausgelagert.
+So werden die Attribute ebenfalls vor fremden und falschem Zugriff geschützt (Thema: Datenkapselung).
+
+Aus der Abstraktion entstanden folgende Klassen:
 
 #### `Fighter.java`
 Der Basisfighter. Jeder Fighter hat eine Id und einen Namen, Lebenspunkte und die eigene Stärke. Ein Fighter soll angreifen und sich verteidigen können.
@@ -57,6 +69,9 @@ Ein Battle ist ein Kampf, der zwischen zwei Fightern ausgetragen wird. Ein Kampf
 
 #### `GameMenu.java`
 Das GameMenu ist die Konsole, auf der der Benutzer Eingaben und das System Ausgaben machen kann.
+
+#### `BattleService.java`
+Der BattleService ist ein Service welcher das Spiel verwaltet. Er beinhaltet die Fighter und initialisiert die Spiele mit den Gegnern. 
 
 ### Polymorphie
 Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphismus in den Subklassen festgelegt werden.

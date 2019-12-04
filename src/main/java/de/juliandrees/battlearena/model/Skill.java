@@ -2,27 +2,21 @@ package de.juliandrees.battlearena.model;
 
 public enum Skill {
 
-    PUNCH("Schlag", 0.6, SkillType.ATTACK),
-    KICK("Tritt", 0.4, SkillType.ATTACK),
-    SHOOT("Schießen", 0.5, SkillType.ATTACK),
-    BURN("Verbrennen", 0.9, SkillType.ATTACK),
+    PUNCH(0.6, SkillType.ATTACK),
+    KICK( 0.4, SkillType.ATTACK),
+    SHOOT(0.5, SkillType.ATTACK),
+    BURN(0.9, SkillType.ATTACK),
 
-    BLOCK("Blocken", 0.2, SkillType.DEFENSE)
+    BLOCK(0.2, SkillType.DEFENSE)
 
     ;
 
-    private String name;
     private double strength;
     private SkillType skillType;
 
-    Skill(final String name, final double strength, final SkillType skillType) {
-        this.name = name;
+    Skill(final double strength, final SkillType skillType) {
         this.strength = strength;
         this.skillType = skillType;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public double getStrength() {
