@@ -49,16 +49,16 @@ protected abstract List<Skill> defineSkills();
 ### Objektorientierung
 Datenblöcke, die inhaltlich zu einem Thema / Bereich gehören, wurden hier in einzelne Klassen / Objekte aufgeteilt und zusammengefasst. Daraus entstanden folgende Klassen:
 
-#### Fighter.java
+#### `Fighter.java`
 Der Basisfighter. Jeder Fighter hat eine Id und einen Namen, Lebenspunkte und die eigene Stärke. Ein Fighter soll angreifen und sich verteidigen können.
 
-#### Battle.java
+#### `Battle.java`
 Ein Battle ist ein Kampf, der zwischen zwei Fightern ausgetragen wird. Ein Kampf kann nur einen Gewinner haben.
 
-#### GameMenu.java
+#### `GameMenu.java`
 Das GameMenu ist die Konsole, auf der der Benutzer Eingaben und das System Ausgaben machen kann.
 
-### Polymorphismus.java
+### Polymorphie
 Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphismus in den Subklassen festgelegt werden.
 
 ### Datenkapselung
