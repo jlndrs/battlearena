@@ -52,11 +52,11 @@ protected abstract List<Skill> defineSkills();
 Datenblöcke, die inhaltlich zu einem Thema / Bereich gehören, wurden hier in einzelne Klassen / Objekte aufgeteilt und zusammengefasst. 
 
 #### Einmalige Instanziierung (Zuständigkeiten)
-Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: inhaltlich gehören die Attribute (z.B. die Streams im GameMenu) zu keiner bestehenden Klasse, sie müssen nicht für die Klasse verfügbar sein, in der sie verwendet werden (wie sie es z.B. in der Main-Klasse wären).
+Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: inhaltlich gehören die Attribute (z.B. die Streams im GameMenu) zu keiner bestehenden Klasse, sie müssen nicht direkt (per Punktoperator) für die Klasse verfügbar sein, in der sie verwendet werden (wie sie es z.B. in der Main-Klasse wären).
 
 Daher erstellt man Klassen, die diese Attribute durch Methoden verwalten können. Die Klassen, die ein Objekt der Klasse dann verwenden können über die Methoden auf die Attribute indirekt zugreifen.
 
-Durch die Aufteilung auf Klassen beinhaltet die Hauptklasse deutlich weniger Referenzen auf Objekte und kann trotzdem alle nötigen Funktionen nutzen, die Zuständigkeiten werden in Klassen ausgelagert.
+Durch die Aufteilung auf Klassen beinhaltet die Hauptklasse deutlich weniger Referenzen auf Objekte und kann trotzdem alle nötigen Funktionen nutzen, da die Zuständigkeiten in Klassen ausgelagert werden.
 So werden die Attribute ebenfalls vor fremden und falschem Zugriff geschützt (Thema: Datenkapselung).
 
 Aus der Abstraktion entstanden folgende Klassen:
@@ -76,12 +76,29 @@ Der BattleService ist ein Service welcher das Spiel verwaltet. Er beinhaltet die
 ### Polymorphie
 Die einzelnen Implementierungen benötigen keine besonderen Implementierungen von Methoden, außer eine: `defineSkills(): List<Skill>`. In dieser Methode werden für jede Klasse die Fähigkeiten definiert, die der im Kampf zur Verfügung hat. Da dies für die Superklasse nicht festgelegt werden kann, muss dies durch Polymorphie in den Subklassen festgelegt werden.
 
+Eine dynamische Bindung findet hier statt:
+
+``` java
+private List<Fighter> fighters = new ArrayList<>();
+
+public BattleService() {
+    fighters.add(new Archer());
+    fighters.add(new Giant());
+    fighters.add(new Dragon());
+    fighters.add(new Magician());
+
+    fighters.forEach(Fighter::initialize);
+}
+```
+So muss der Typ der Kämpfer nicht bei der Initialisierung der Liste bekannt sein, und trotzdem werden die eigenen Implementierungen der Fighter (siehe oben) berücksichtigt.
+
 ### Datenkapselung
 Die Objekte verwalten sich größtenteils selbst. Für andere Objekte bedeutet das konkret: wenig Zugriff auf die Eigenschaften anderer Objekte, und wenn: meist zur Lesezugriff. Die Datenkapselung reduziert das Risiko von falscher Nutzung der Objekte und Eigenschaften.
 
-Die Datenkapselung gilt nicht nur für Attribute (und deren get- und set-Methoden) sondern auch für andere Funktionen.
-
 Dazu: die Klassen sind keine reinen POJO-Objekte (Datenobjekte), da Logik in der Klasse enthalten ist.
+Die Datenkapselung gilt nicht nur für Attribute (und deren get- und set-Methoden) sondern auch für andere Funktionen.
+Durch meine gewählte Datenkapselung (hier: Logik in Objekten) wird der Quellcode in anderen Klassen reduziert - die meiste Logik liegt direkt in den Klassen.
+
 
 ### Lambda-Ausdrücke
 Lambda-Ausdrücke sind Kurzschreibweisen für bestimmte Funktionen in Java (z.B Iterieren von Listen, Initialisierung von Obekten, etc..).
