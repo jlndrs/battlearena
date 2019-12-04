@@ -91,4 +91,27 @@ In *BattleArena* werden auch Lambda-Ausdrücke verwendet, um den Quellcode zu re
 .filter(fighterRegister -> fighterRegister.getFighterClass().equals(fighterClazz))
 ```
 
+anstatt
+
+``` java
+for (FighterRegister register : FighterRegister.values()) {
+    if (register.getFighterClass().equals(fighterClazz)) {
+        ...
+    }
+}
+```
+
+*ODER*:
+``` java
+fighters.forEach(Fighter::initialize);
+```
+
+anstatt
+
+``` java
+for (Fighter fighter : fighters) {
+    fighter.initialize();
+}
+```
+
 Lambda-Ausdrücke sind nicht notwendig, bieten jedoch eine schöne und einfache Alternative zu alltäglichen Funktionen, die deutlich mehr Code verursachen würden (Syntaktischer Zucker).
