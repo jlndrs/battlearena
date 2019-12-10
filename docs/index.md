@@ -1,6 +1,6 @@
 # BattleArena
 BattleArena ist ein Spiel, bei dem sich ein Spieler seinen Charakter auswählen kann und dann nacheinander gegen alle vorhandenen Gegner antritt.
-Der Spieler hat gewonnen wenn alle Gegner besiegt wurden.
+Der Spieler hat gewonnen, wenn alle Gegner besiegt wurden.
 
 ## Abhängigkeiten
 - [maven](https://maven.apache.org/) - für den Build-Prozess / die Abhängigkeiten
@@ -12,7 +12,7 @@ Für das Projekt ist keine Main-Methode angegeben, sodass das Projekt nur aus de
 
 ### Ablauf des Spiels
 
-Das Spiel läuft solange der aktueller Spieler alle Spiele gewonnen hat und noch mehr als 0 Lebsnpunkte hat. Nach jedem Spiel werden die Lebenspunkte des Spielers zurückgesetzt.
+Das Spiel läuft solange der aktueller Spieler alle Spiele gewonnen hat und noch mehr als 0 Lebenspunkte hat. Nach jedem Spiel werden die Lebenspunkte des Spielers zurückgesetzt.
 
 1. Spiel starten (per Run in der IDE)
 2. Kämpfer wählen (durch Eingabe der Id)
@@ -33,7 +33,7 @@ Die Implementierungen der Fighter:
 - [Magician](https://github.com/jlndrs/battlearena/blob/master/src/main/java/de/juliandrees/battlearena/model/fighter/Magician.java)
 
 ### Abstraktion
-Die Klasse `Fighter` ist eine abstrakte Klasse, die auch die Spiellogik für den Spieler beinhaltet. Jeder Fighter braucht eine Id und einen Standard-Namen (Kämpfername). Da von mehreren Stellen darauf zugegriffen wird habe ich mich dazu entschieden ein `FighterRegister` anzulegen, welche diese Informationen beinhaltet.
+Die Klasse `Fighter` ist eine abstrakte Klasse, die auch die Spiellogik für den Spieler beinhaltet. Jeder Fighter braucht eine Id und einen Standard-Namen (Kämpfername). Da von mehreren Stellen darauf zugegriffen wird, habe ich mich dazu entschieden ein `FighterRegister` anzulegen, welche diese Informationen beinhaltet.
 
 *Ursprüngliches Problem: Für Ausgaben o.ä braucht man keine Objekte, sondern lediglich Basisinformationen. Diese Basisinformationen kann man aber nicht erreichen wenn diese nur in Objekten vom Typ Fighter verfügbar sind.*
 
@@ -52,7 +52,7 @@ protected abstract List<Skill> defineSkills();
 Datenblöcke, die inhaltlich zu einem Thema / Bereich gehören, wurden hier in einzelne Klassen / Objekte aufgeteilt und zusammengefasst. 
 
 #### Einmalige Instanziierung (Zuständigkeiten)
-Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: inhaltlich gehören die Attribute (z.B. die Streams im GameMenu) zu keiner bestehenden Klasse, sie müssen nicht direkt (per Punktoperator) für die Klasse verfügbar sein, in der sie verwendet werden (wie sie es z.B. in der Main-Klasse wären).
+Klassen wie `BattleService` und `GameMenu` werden nur einmal instanziiert. Der Grund: Inhaltlich gehören die Attribute (z. B. die Streams im GameMenu) zu keiner bestehenden Klasse, sie müssen nicht direkt (per Punktoperator) für die Klasse verfügbar sein, in der sie verwendet werden (wie sie es z. B. in der Main-Klasse wären).
 
 Daher erstellt man Klassen, die diese Attribute durch Methoden verwalten können. Die Klassen, die ein Objekt der Klasse dann verwenden können über die Methoden auf die Attribute indirekt zugreifen.
 
@@ -93,15 +93,15 @@ public BattleService() {
 So muss der Typ der Kämpfer nicht bei der Initialisierung der Liste bekannt sein, und trotzdem werden die eigenen Implementierungen der Fighter (siehe oben) berücksichtigt.
 
 ### Datenkapselung
-Die Objekte verwalten sich größtenteils selbst. Für andere Objekte bedeutet das konkret: wenig Zugriff auf die Eigenschaften anderer Objekte, und wenn: meist zur Lesezugriff. Die Datenkapselung reduziert das Risiko von falscher Nutzung der Objekte und Eigenschaften.
+Die Objekte verwalten sich größtenteils selbst. Für andere Objekte bedeutet das konkret: wenig Zugriff auf die Eigenschaften anderer Objekte, und wenn: meist nur Lesezugriff. Die Datenkapselung reduziert das Risiko von falscher Nutzung der Objekte und Eigenschaften.
 
-Dazu: die Klassen sind keine reinen POJO-Objekte (Datenobjekte), da Logik in der Klasse enthalten ist.
+Dazu: Die Klassen sind keine reinen POJO-Objekte (Datenobjekte), da Logik in der Klasse enthalten ist.
 Die Datenkapselung gilt nicht nur für Attribute (und deren get- und set-Methoden) sondern auch für andere Funktionen.
 Durch meine gewählte Datenkapselung (hier: Logik in Objekten) wird der Quellcode in anderen Klassen reduziert - die meiste Logik liegt direkt in den Klassen.
 
 
 ### Lambda-Ausdrücke
-Lambda-Ausdrücke sind Kurzschreibweisen für bestimmte Funktionen in Java (z.B Iterieren von Listen, Initialisierung von Obekten, etc..).
+Lambda-Ausdrücke sind Kurzschreibweisen für bestimmte Funktionen in Java (z.B Iterieren von Listen, Initialisierung von Objekten, etc..).
 
 In *BattleArena* werden auch Lambda-Ausdrücke verwendet, um den Quellcode zu reduzieren:
 ``` java
